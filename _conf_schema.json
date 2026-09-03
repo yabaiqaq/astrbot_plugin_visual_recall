@@ -1,0 +1,42 @@
+{
+  "enabled": {
+    "description": "是否启用历史图片的索引与召回",
+    "type": "bool",
+    "default": true
+  },
+  "inject_index": {
+    "description": "是否在每轮对话开始时把图片索引注入上下文。关掉后模型不知道有图可看，基本不会再主动召回",
+    "type": "bool",
+    "default": true
+  },
+  "index_entries": {
+    "description": "注入上下文的索引里最多列出几张图片（1-30）",
+    "type": "int",
+    "default": 8
+  },
+  "max_images_per_call": {
+    "description": "单次召回最多返回几张图（1-6）",
+    "type": "int",
+    "default": 3
+  },
+  "max_image_edge": {
+    "description": "召回图片的最大边长，超出则等比压缩。需要安装 Pillow，未安装时跳过压缩。设为 0 关闭压缩",
+    "type": "int",
+    "default": 1280
+  },
+  "max_store_mb": {
+    "description": "单张图片超过此大小则不纳入索引，单位 MB",
+    "type": "int",
+    "default": 15
+  },
+  "max_images_per_session": {
+    "description": "每个会话最多保留多少张图片记录，超出部分按时间清理",
+    "type": "int",
+    "default": 60
+  },
+  "keep_days": {
+    "description": "图片记录的保留天数",
+    "type": "int",
+    "default": 7
+  }
+}
