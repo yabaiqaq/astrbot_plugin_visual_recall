@@ -10,7 +10,7 @@ desc: |
   在 Agent 上下文里注入索引摘要（on_agent_begin）→ 工具返回图片触发 runner 自动追加 user 消息。
 author: yabaiqaq
 repo: https://github.com/yabaiqaq/astrbot_plugin_visual_recall
-version: 1.0.0
+version: 1.0.1
 astrbot_version: ">=4.17.0"
 tags:
   - vision
