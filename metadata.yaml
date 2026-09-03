@@ -1,5 +1,6 @@
 name: astrbot_plugin_visual_recall
 display_name: Visual Recall - 视觉回溯
+short_desc: 无需艾特和引用即可看图，也不需要开启图片上下文。
 desc: |
   让 LLM 按需回看本会话历史图片。模型在需要参考之前某张图片时，
   可调用 recall_image 工具按会话内序号或关键词检索图片并真正看到图片内容。
@@ -10,6 +11,7 @@ desc: |
   原理：拦截所有 incoming 图片 → 复制到本地存储并建立 SQLite 索引 →
   在 Agent 上下文里注入索引摘要（on_agent_begin）→ 工具返回图片触发 runner 自动追加 user 消息。
 author: yabaiqaq
+repo: https://github.com/yabaiqaq/astrbot_plugin_visual_recall
 version: 1.0.0
 astrbot_version: ">=4.17.0"
 tags:
