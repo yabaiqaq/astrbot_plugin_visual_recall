@@ -1,6 +1,6 @@
 name: astrbot_plugin_visual_recall
 display_name: Visual Recall - 视觉回溯
-short_desc: 无需艾特和引用即可看图，也不需要开启图片上下文。
+short_desc: 无需引用或消息附带图片即可看图，也不需要开启图片上下文。
 desc: |
   无需引用或消息附带图片，也不需要开启图片上下文，即可让 LLM 按需回看本会话历史图片。
   模型在需要参考之前某张图片时，可调用 recall_image 工具按会话内序号或关键词检索图片并真正看到图片内容。
