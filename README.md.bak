@@ -57,11 +57,11 @@ astrbot_plugin_visual_recall/
 
 1.无需引用图片，无需附带图片，自动根据语境按需回看图片
 
-<img title="" src="docs\examples\1.jpg" alt="" width="1379">
+<img title="" src="src\1.jpg" alt="" width="1379">
 
 2.llm根据序号/时间/备注 索引回看图片
 
-<img title="" src="docs\examples/2.jpg" alt="" width="330" data-align="inline"><img title="" src="docs\examples/3.jpg" alt="" width="282"><img title="" src="docs\examples/4.jpg" alt="" width="479" data-align="left">
+<img title="" src="src/2.jpg" alt="" width="330" data-align="inline"><img title="" src="src/3.jpg" alt="" width="282"><img title="" src="src/4.jpg" alt="" width="479" data-align="left">
 
 1. 在会话里发一张图，附带一句文字（比如「这是柜门」）。
 2. 发送 `/vimg`，应当能看到索引列表，例如 `#1 09-03 14:22 这是柜门`。
