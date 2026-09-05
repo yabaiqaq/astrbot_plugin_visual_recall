@@ -5,7 +5,7 @@ desc: |
   根据语境按需回看会话中出现过的历史图片，无需引用图片，也不用在消息中附带图片，也不需要开启图片上下文。
 author: yabaiqaq
 repo: https://github.com/yabaiqaq/astrbot_plugin_visual_recall
-version: 2.0.1
+version: 2.1.0
 astrbot_version: ">=4.17.0"
 tags:
   - vision
