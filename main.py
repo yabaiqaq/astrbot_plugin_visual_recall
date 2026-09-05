@@ -8,6 +8,10 @@
    模型才知道「有图可看」以及每张图的序号。
 3. 召回：模型判断需要看图时调用 recall_image，工具返回真实图片，
    AstrBot 的 runner 会把图片追加成一条 user 消息，模型于是真正看到它。
+
+依赖：本目录有 __init__.py，因此是正经 Python 包；内部 import 都用
+相对路径（from .tools / from .storage），由 AstrBot 加载器把插件当作
+astrbot_plugin_visual_recall 包来 import。
 """
 
 from __future__ import annotations
@@ -15,15 +19,8 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import shutil
-import sys
 import time
 from pathlib import Path
-
-# AstrBot 加载插件的方式不保证把插件目录当作包，这里显式兜底，
-# 保证 main.py / tools.py / storage.py 之间用普通绝对导入即可互相引用。
-_HERE = str(Path(__file__).resolve().parent)
-if _HERE not in sys.path:
-    sys.path.insert(0, _HERE)
 
 from astrbot import logger  # noqa: E402
 from astrbot.api.event import AstrMessageEvent, filter  # noqa: E402
@@ -33,8 +30,8 @@ from astrbot.core.agent.run_context import ContextWrapper  # noqa: E402
 from astrbot.core.astr_agent_context import AstrAgentContext  # noqa: E402
 from astrbot.core.message.components import Image  # noqa: E402
 
-from storage import ImageStore, guess_mime  # noqa: E402
-from tools import RecallImageTool  # noqa: E402
+from .storage import ImageStore, guess_mime  # noqa: E402
+from .tools import RecallGifFramesTool, RecallImageTool  # noqa: E402
 
 _ALLOWED_SUFFIX = (".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp")
 
@@ -66,6 +63,7 @@ class VisualRecallPlugin(Star):
             self._init_task = None
 
         self.context.add_llm_tools(RecallImageTool(store=self.store, conf=self.conf))
+        self.context.add_llm_tools(RecallGifFramesTool(store=self.store, conf=self.conf))
 
     # ------------------------------------------------------------------ 配置
 
@@ -100,6 +98,20 @@ class VisualRecallPlugin(Star):
             return fallback
 
     async def _boot(self) -> None:
+        # 依赖自检：Pillow 缺失会让 GIF 抽帧 / 图片压缩全部失效，
+        # 这里在插件加载时就给出明确告警，避免功能静默退化。
+        try:
+            import PIL  # noqa: F401
+
+            _pillow_ok = True
+        except ImportError:
+            _pillow_ok = False
+        if not _pillow_ok:
+            logger.warning(
+                "[visual_recall] 未检测到 Pillow！图片压缩、GIF 自动抽帧、"
+                "recall_gif_frames 将不可用。请执行 `pip install \"Pillow>=10.0.0\"` "
+                "(或 `pip install -r requirements.txt`) 后重载插件。"
+            )
         try:
             await self.store.init()
             self._ready = True

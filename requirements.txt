@@ -1,0 +1,9 @@
+# AstrBot 在「安装 / 加载」插件时会自动执行 `pip install -r requirements.txt`。
+# 无需用户手动安装，但若自动安装失败，请按下方手动命令处理。
+#
+# 依赖说明：
+#   Pillow  —— GIF 抽帧、contact sheet 拼图、图片等比压缩都依赖它。
+#             未安装时 recall_image 仍可用（不压缩、GIF 回退原图），
+#             但 recall_gif_frames 与 GIF 自动抽帧功能会失效。
+#             代码用到 ImageFont.load_default(size=N)，建议 Pillow >= 10.0.0。
+Pillow>=10.0.0

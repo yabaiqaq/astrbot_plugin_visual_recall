@@ -24,6 +24,21 @@
     "type": "int",
     "default": 1280
   },
+  "gif_as_contact_sheet": {
+    "description": "识别到 GIF 后是否自动抽帧拼成静态预览图（contact sheet）。多数模型看真 GIF 只会渲染第 1 帧，开启后变成多帧预览图，模型能看清整个动画过程。需要 Pillow。",
+    "type": "bool",
+    "default": true
+  },
+  "gif_frame_count": {
+    "description": "GIF 抽帧时的默认帧数（1-16）。原始帧数少于该值就全取，多于该值按等间隔采样、首尾都保留。可在 recall_gif_frames 工具调用时临时覆盖。",
+    "type": "int",
+    "default": 8
+  },
+  "gif_max_edge": {
+    "description": "GIF 接触印片中每一帧的最大边长，等比缩放。预览图整体尺寸约等于 cols×max_edge。需要 Pillow。",
+    "type": "int",
+    "default": 640
+  },
   "max_store_mb": {
     "description": "单张图片超过此大小则不纳入索引，单位 MB",
     "type": "int",
